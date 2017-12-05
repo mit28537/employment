@@ -1,0 +1,27 @@
+
+nav ul	{list-style-type:none;
+		padding-left:0}
+
+nav li	{display:inline;
+		font-size:14px;
+		padding-left:10px;
+		padding-right:10px}
+
+h1			{color: #FFFFFF}
+
+.Header		{float: left;
+			width: 100%;
+			background-color: #282828}
+
+.box:after	{content: "";
+            display: block;
+            clear: both}
+            
+.boxMenu 	{float: left;
+          	width: 20%;
+          	hight: 100%;
+          	background-color: #282828}
+
+.boxMain 	{float: left;
+          	width: 80%;
+          	background-color: #FFFFFF}
