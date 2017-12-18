@@ -90,13 +90,13 @@ if(mb_strlen($project_skill) > 30)
 }
 
 //半角数字チェック（金額）
-if(mb_strlen($project_price) > 0){
-	if(!preg_match('/^[0-9]+$/',$project_price))
-	{
-		$message .= '金額が半角数字ではありません。<br />';
-		$check_flg=false;
-	}
-}
+//if(mb_strlen($project_price) > 0){
+//	if(!preg_match('/^[0-9]+$/',$project_price))
+//	{
+//		$message .= '金額が半角数字ではありません。<br />';
+//		$check_flg=false;
+//	}
+//}
 
 //文字数チェック（勤務地）
 if(mb_strlen($project_location) > 20)
