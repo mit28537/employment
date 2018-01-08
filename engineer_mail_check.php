@@ -1,7 +1,7 @@
 <?php
 session_start();
 //session_start()の前に「<?php」以外（htmlタグ等）があるとエラーになる。
-
+require_once('config.php');
 require_once('common.php');
 
 //セッションチェック
@@ -15,7 +15,7 @@ if(isset($_SESSION['login']) == false) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>案件情報メンテナンス</title>
+<title><?php print $config['app']['app_title']; ?></title>
 <link rel="stylesheet" href="css/style.css">
 <script type="text/javascript" src="js/module.js"></script>
 </head>
@@ -40,11 +40,15 @@ if(isset($_SESSION['login']) == false) {
 //前画面からの入力データを受け取る
 $engineer_id=$_POST['engineer_id'];
 $engineer_mail_address=$_POST['engineer_mail_address'];
+$mail_from=$_POST['mail_from'];
+$mail_subject=$_POST['mail_subject'];
 $mail_text=$_POST['mail_text'];
 
 //サニタイジング
 $engineer_id=htmlspecialchars($engineer_id);
 $engineer_mail_address=htmlspecialchars($engineer_mail_address);
+$mail_from=htmlspecialchars($mail_from);
+$mail_subject=htmlspecialchars($mail_subject);
 $mail_text=htmlspecialchars($mail_text);
 
 
@@ -52,6 +56,34 @@ $mail_text=htmlspecialchars($mail_text);
 $check_flg=true;
 
 $message = '';
+
+if($engineer_mail_address=='')
+{
+	$message .= '宛先が入力されていません。<br />';
+	$check_flg=false;
+} else {
+	if(preg_match('/^[\w\-\.]+\@[\w\-\.]+\.([a-z]+)$/',$engineer_mail_address) == 0) {
+		$message .= '宛先のメールアドレス形式が正しくありません。<br />';
+		$check_flg=false;
+	}
+}
+
+if($mail_from=='')
+{
+	$message .= '差出人が入力されていません。<br />';
+	$check_flg=false;
+} else {
+	if(preg_match('/^[\w\-\.]+\@[\w\-\.]+\.([a-z]+)$/',$mail_from) == 0) {
+		$message .= '差出人のメールアドレス形式が正しくありません。<br />';
+		$check_flg=false;
+	}
+}
+
+if($mail_subject=='')
+{
+	$message .= '件名が入力されていません。<br />';
+	$check_flg=false;
+}
 
 if($mail_text=='')
 {
@@ -70,8 +102,18 @@ if($check_flg==true)
 	print '<table class="pj_table">';
 	
 	print '<tr>';
-	print '<td class="pj_item">メールアドレス：</td>';
+	print '<td class="pj_item">宛先：</td>';
 	print '<td class="inputCheck">'.$engineer_mail_address.'</td>';
+	print '</tr>';
+
+	print '<tr>';
+	print '<td class="pj_item">差出人：</td>';
+	print '<td class="inputCheck">'.$mail_from.'</td>';
+	print '</tr>';
+
+	print '<tr>';
+	print '<td class="pj_item">件名：</td>';
+	print '<td class="inputCheck">'.$mail_subject.'</td>';
 	print '</tr>';
 
 	print '<tr>';
@@ -86,6 +128,8 @@ if($check_flg==true)
 	//次画面へ連携するデータ
 	print '<input type="hidden" name="engineer_id" value="'.$engineer_id.'">';
 	print '<input type="hidden" name="engineer_mail_address" value="'.$engineer_mail_address.'">';
+	print '<input type="hidden" name="mail_from" value="'.$mail_from.'">';
+	print '<input type="hidden" name="mail_subject" value="'.$mail_subject.'">';
 	print '<input type="hidden" name="mail_text" value="'.$mail_text.'">';
 	
 	print '<br />';

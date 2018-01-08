@@ -1,8 +1,12 @@
+<?php
+require_once('config.php');
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>案件情報メンテナンス</title>
+<title><?php print $config['app']['app_title']; ?></title>
 <link rel="stylesheet" href="css/style.css">
 <script type="text/javascript" src="js/module.js"></script>
 </head>

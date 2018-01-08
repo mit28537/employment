@@ -2,6 +2,7 @@
 //session_cache_limiter('public');
 session_start();
 //session_start()の前に「<?php」以外（htmlタグ等）があるとエラーになる。
+require_once('config.php');
 
 require_once('common.php');
 
@@ -34,7 +35,7 @@ $projectPhaseArray = get_mstProjectPhase();
 <html>
 <head>
 <meta charset="UTF-8">
-<title>案件情報メンテナンス</title>
+<title><?php print $config['app']['app_title']; ?></title>
 <link rel="stylesheet" href="css/style.css">
 <script type="text/javascript" src="js/module.js"></script>
 </head>

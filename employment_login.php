@@ -1,8 +1,12 @@
+<?php
+require_once('config.php');
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>案件情報メンテナンス</title>
+<title><?php print $config['app']['app_title']; ?></title>
 </head>
 <body>
 
@@ -12,7 +16,7 @@
 <form method="post" action="employment_login_check.php">
 
 ユーザーIDを入力してください。<br />
-<input type="text" name="user_id" style="width:400px"><br />
+<input type="text" name="user_id" style="width:200px"><br />
 <br />
 
 パスワードを入力してください。<br />

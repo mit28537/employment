@@ -1,4 +1,5 @@
 <?php
+require_once('config.php');
 
 $_SESSION = array();
 
@@ -14,7 +15,7 @@ if(isset($_COOKIE[session_name()]) == true) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>案件情報メンテナンス</title>
+<title><?php print $config['app']['app_title']; ?></title>
 </head>
 <body>
 

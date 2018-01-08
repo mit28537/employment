@@ -1,11 +1,16 @@
 <?php
 
 function get_dbh(){
+	require('config.php');
+
 	try
 	{
-		$dsn = 'mysql:dbname=employment;host=localhost';
-		$user = 'root';
-		$password = '';
+		//$dsn = 'mysql:dbname=employment;host=localhost';
+		$dsn = $config['database']['dsn'];
+		//$user = 'root';
+		$user = $config['database']['user'];
+		//$password = '';
+		$password = $config['database']['password'];
 
 		$dbh = new PDO($dsn,$user,$password);
 		$dbh->query('SET NAMES utf8');

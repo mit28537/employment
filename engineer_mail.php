@@ -2,7 +2,7 @@
 //session_cache_limiter('public');
 session_start();
 //session_start()の前に「<?php」以外（htmlタグ等）があるとエラーになる。
-
+require_once('config.php');
 require_once('common.php');
 
 //セッションチェック
@@ -22,7 +22,7 @@ $arrayData = get_engineerDetails($engineer_id);
 <html>
 <head>
 <meta charset="UTF-8">
-<title>案件情報メンテナンス</title>
+<title><?php print $config['app']['app_title']; ?></title>
 <link rel="stylesheet" href="css/style.css">
 <script type="text/javascript" src="js/module.js"></script>
 </head>
@@ -60,8 +60,16 @@ $arrayData = get_engineerDetails($engineer_id);
 </tr>
 
 <tr>
-<td id="mail" class="pj_item">メールアドレス</td>
-<td class="pj_value"><input type="text" name="engineer_mail_address" class="textBox" value="<?php print $arrayData['engineer_mail_address']; ?>"></td>
+<td id="mail" class="pj_item">宛先</td>
+<td class="pj_value"><input type="text" name="engineer_mail_address" class="textBox" value="<?php print $arrayData['engineer_mail_address']; ?>"></td></tr>
+
+<tr>
+<td id="mail" class="pj_item">差出人</td>
+<td class="pj_value"><input type="text" name="mail_from" class="textBox" value="<?php print $config['mail']['mail_from']; ?>"></td></tr>
+</tr>
+
+<td id="mail" class="pj_item">件名</td>
+<td class="pj_value"><input type="text" name="mail_subject" class="textBox" value="<?php print $config['mail']['mail_subject']; ?>"></td></tr>
 </tr>
 
 <tr>

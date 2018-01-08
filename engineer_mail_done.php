@@ -1,8 +1,12 @@
+<?php
+require_once('config.php');
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>案件情報メンテナンス</title>
+<title><?php print $config['app']['app_title']; ?></title>
 <link rel="stylesheet" href="css/style.css">
 <script type="text/javascript" src="js/module.js"></script>
 </head>
@@ -29,23 +33,28 @@
 //前画面からの入力データを受け取る
 $engineer_id=$_POST['engineer_id'];
 $engineer_mail_address=$_POST['engineer_mail_address'];
+$mail_from=$_POST['mail_from'];
+$mail_subject=$_POST['mail_subject'];
 $mail_text=$_POST['mail_text'];
 
 //サニタイジング
 $engineer_id=htmlspecialchars($engineer_id);
 $engineer_mail_address=htmlspecialchars($engineer_mail_address);
+$mail_from=htmlspecialchars($mail_from);
+$mail_subject=htmlspecialchars($mail_subject);
 $mail_text=htmlspecialchars($mail_text);
 
-//メール送信処理
-$mailTo = $engineer_mail_address;									//送信先アドレス
-$subject = '【フリーえんじにやー】ご登録ありがとうございます！';	//TODO メールタイトル
-$comment = $mail_text;												//メール内容
-$header = 'From:k-tamaki@k-mit.jp';									//TODO 送信元アドレス
+//メール設定処理
+$mailTo = $engineer_mail_address;		//送信先アドレス
+$subject = $mail_subject;				//TODO メールタイトル
+$comment = $mail_text;					//メール内容
+$header = 'From:'.$mail_from;			//TODO 送信元アドレス
 
 $result_mail = '';
 $result_db = '';
 $message = '';
 
+//メール送信処理
 $result_mail = mb_send_mail($mailTo,$subject,$comment,$header);
 
 if($result_mail) {
